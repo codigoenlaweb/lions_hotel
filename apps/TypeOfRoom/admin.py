@@ -2,12 +2,12 @@
 from django.contrib import admin
 
 # my app
-from .models import Room
+from .models import TypeOfRoom
 
 # Register your models here.
-@admin.register(Room)
-class RoomAdmin(admin.ModelAdmin):
-    '''Admin View for Room'''
+@admin.register(TypeOfRoom)
+class TypeOfRoomAdmin(admin.ModelAdmin):
+    '''Admin View for TypeOfRoom'''
 
     # list_display = ('',)
     # list_filter = ('',)

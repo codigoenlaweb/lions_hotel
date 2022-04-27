@@ -29,11 +29,14 @@ DJANGO_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.Reservation',
+    'apps.TypeOfRoom',
     'apps.Room',
+    'apps.Reservation',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "phonenumber_field",
+]
 
 INSTALLED_APPS = DJANGO_APPS + LOCAL_APPS + THIRD_PARTY_APPS
 

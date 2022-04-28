@@ -18,7 +18,7 @@ class TypeOfRoomAdmin(admin.ModelAdmin):
     # readonly_fields = ('',)
     # search_fields = ('',)
     # date_hierarchy = ''
-    # ordering = ('',)
+    ordering = ('number_of_people',)
     
     def room_price(self, obj):
         return str(obj.price) + '€'

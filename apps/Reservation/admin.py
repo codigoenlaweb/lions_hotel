@@ -17,9 +17,10 @@ class ReservationAdmin(admin.ModelAdmin):
     # ]
     raw_id_fields = ('room',)
     # readonly_fields = ('',)
-    # search_fields = ('',)
+    search_fields = ('localizador',)
     # date_hierarchy = ''
     ordering = ('reservation_date',)
+    list_per_page = 20
     
     def number_room(self, obj):
         return 'room ' + str(obj.room)

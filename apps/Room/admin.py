@@ -10,13 +10,8 @@ class RoomAdmin(admin.ModelAdmin):
     '''Admin View for Room'''
 
     list_display = ('type_of_room', 'room_number', 'floor_number',)
-    list_filter = ('type_of_room',)
-    # inlines = [
-    #     Inline,
-    # ]
-    # raw_id_fields = ('',)
-    # readonly_fields = ('',)
-    # search_fields = ('',)
-    # date_hierarchy = ''
-    # ordering = ('',)
+    list_filter = ('type_of_room', 'floor_number',)
+    search_fields = ('room_number',)
+    ordering = ('type_of_room',)
+    list_per_page = 25
     

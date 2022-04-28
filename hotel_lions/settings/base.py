@@ -32,6 +32,7 @@ LOCAL_APPS = [
     'apps.TypeOfRoom',
     'apps.Room',
     'apps.Reservation',
+    'apps.Home'
 ]
 
 THIRD_PARTY_APPS = [

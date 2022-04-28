@@ -3,6 +3,7 @@ from django.db import models
 
 # my app
 from apps.TypeOfRoom.models import TypeOfRoom
+from .managers import RoomManager
 
 # Create your models here.
     
@@ -16,7 +17,7 @@ class Room(models.Model):
     floor_number = models.CharField(verbose_name="Floor number", max_length=12)
     description = models.TextField(verbose_name="Description", blank=True, null=True)
     
-
+    objects = RoomManager()
     
     class Meta:
         """Meta definition for Room."""

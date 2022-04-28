@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>book your room</title>
+</head>
+<body>
+    {{type_of_room.category}}
+    {{type_of_room.number_of_people}}
+    {{type_of_room.price}}
+    <form method="get">
+        <input type="date" name="entry_date" id="entry_date" min="{{min_date}}" max="2022-12-31" required>
+        <input type="date" name="deperture_date" id="deperture_date" min="{{min_date}}" max="2022-12-31" required>
+        <input type="submit" value="verificar disponibilidad">
+        
+        {% if date_error %}
+            <p>{{date_error}}</p>
+        {% endif %}
+    </form>
+    {% if room_avaible %}
+        {% for room in room_avaible %}
+            <ul>
+                <li><a href="{% url 'reservation:register_reservation' %}">{{room.room_number}}</a></li>
+            </ul>
+        {% endfor %}
+    {% endif %}
+        
+</body>
+</html>

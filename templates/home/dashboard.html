@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lions Hotel</title>
+</head>
+<body>
+    {% for room_type in type_of_rooms %}
+        <ul>
+            <li><a href="{% url 'type_of_reservation:room_avaible' room_type.id %}">{{room_type.category}}</a></li>
+        </ul>
+    {% endfor %}
+</body>
+</html>

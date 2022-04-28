@@ -1,3 +1,4 @@
+from datetime import datetime
 # django
 from django.contrib import admin
 
@@ -9,13 +10,22 @@ from .models import Reservation
 class ReservationAdmin(admin.ModelAdmin):
     '''Admin View for Reservation'''
 
-    # list_display = ('',)
-    # list_filter = ('',)
+    list_display = ('number_room', 'type_room', 'name_of_person', 'email_of_person', 'phone_number_person', 'full_payment', 'entry_date', 'deperture_date', 'localizador', 'confirmed')
+    list_filter = ('confirmed', 'room',)
     # inlines = [
     #     Inline,
     # ]
-    # raw_id_fields = ('',)
+    raw_id_fields = ('room',)
     # readonly_fields = ('',)
     # search_fields = ('',)
     # date_hierarchy = ''
-    # ordering = ('',)
+    ordering = ('reservation_date',)
+    
+    def number_room(self, obj):
+        return 'room ' + str(obj.room)
+    
+    def full_payment(self, obj):
+        return str(obj.total_price) + '€'
+    
+    def type_room(self, obj):
+        return obj.room.type_of_room

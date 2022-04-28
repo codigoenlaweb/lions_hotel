@@ -3,7 +3,6 @@ from django.db import models
 
 # my app
 from apps.Room.models import Room
-from apps.TypeOfRoom.models import TypeOfRoom
 
 # Third party apps
 from phonenumber_field.modelfields import PhoneNumberField
@@ -14,16 +13,19 @@ class Reservation(models.Model):
     """Model definition for Reservation."""
 
     # fields here
-    room = models.ForeignKey(Room, verbose_name="Room", on_delete=models.CASCADE)
+    room = models.ForeignKey(Room, verbose_name="Room", on_delete=models.CASCADE, related_name='reservation_room')
     reservation_date = models.DateField(verbose_name="Reservation date", auto_now_add=True)
     entry_date = models.DateField(verbose_name="Entry date")
     deperture_date = models.DateField(verbose_name="Deperture date")
     guest_number = models.IntegerField(verbose_name="Guest number")
-    name_of_person = models.CharField(verbose_name="Name of Person", max_length=50)
-    email_of_person = models.EmailField(verbose_name="Email of Person", max_length=250)
+    name_of_person = models.CharField(verbose_name="Name of Person", max_length=50, unique=False)
+    email_of_person = models.EmailField(verbose_name="Email of Person", max_length=250, unique=False)
     phone_number_person = PhoneNumberField(unique =False, null = False, blank = False)
     total_price = models.DecimalField(verbose_name="Toal price", max_digits=6, decimal_places=2)
     localizador = models.CharField(verbose_name="Localizador", max_length=8)
+    confirmed = models.BooleanField(verbose_name="Confirmed", default=False)
+    confirmation_code = models.CharField(verbose_name="Confirmation_code", max_length=5)
+    confirmation_code_time = models.DateTimeField(verbose_name="Confirmation code time")
 
     class Meta:
         """Meta definition for Reservation."""

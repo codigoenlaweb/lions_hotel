@@ -9,8 +9,8 @@ from .models import Room
 class RoomAdmin(admin.ModelAdmin):
     '''Admin View for Room'''
 
-    # list_display = ('',)
-    # list_filter = ('',)
+    list_display = ('type_of_room', 'room_number', 'floor_number',)
+    list_filter = ('type_of_room',)
     # inlines = [
     #     Inline,
     # ]
@@ -19,3 +19,4 @@ class RoomAdmin(admin.ModelAdmin):
     # search_fields = ('',)
     # date_hierarchy = ''
     # ordering = ('',)
+    

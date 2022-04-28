@@ -21,4 +21,4 @@ class TypeOfRoom(models.Model):
 
     def __str__(self):
         """Unicode representation of TypeOfRoom."""
-        return self.category + ' - ' + str(self.price) + '€'
+        return self.category

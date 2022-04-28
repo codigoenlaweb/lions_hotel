@@ -9,7 +9,7 @@ from .models import TypeOfRoom
 class TypeOfRoomAdmin(admin.ModelAdmin):
     '''Admin View for TypeOfRoom'''
 
-    # list_display = ('',)
+    list_display = ('category', 'number_of_people', 'room_price')
     # list_filter = ('',)
     # inlines = [
     #     Inline,
@@ -19,3 +19,6 @@ class TypeOfRoomAdmin(admin.ModelAdmin):
     # search_fields = ('',)
     # date_hierarchy = ''
     # ordering = ('',)
+    
+    def room_price(self, obj):
+        return str(obj.price) + '€'

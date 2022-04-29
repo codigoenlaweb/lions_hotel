@@ -13,3 +13,4 @@ class ReservationForm(forms.ModelForm):
 
         model = Reservation
         fields = ('__all__')
+        

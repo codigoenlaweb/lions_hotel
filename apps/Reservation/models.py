@@ -1,5 +1,9 @@
+# python
+from datetime import date, datetime
+
 # django
 from django.db import models
+from django.forms import ValidationError
 
 # my app
 from apps.Room.models import Room
@@ -8,7 +12,6 @@ from apps.Room.models import Room
 from phonenumber_field.modelfields import PhoneNumberField
 
 # Create your models here.
-
 class Reservation(models.Model):
     """Model definition for Reservation."""
 
@@ -36,3 +39,16 @@ class Reservation(models.Model):
     def __str__(self):
         """Unicode representation of Reservation."""
         return str(self.room) + ' - ' + str(self.entry_date) + ' - ' + str(self.deperture_date) + ' - ' + self.name_of_person
+
+    def clean(self):
+        if self.entry_date < date.today():
+            raise ValidationError({'entry_date':('date must be greater than current date.')})
+        if self.deperture_date < date.today():
+            raise ValidationError({'deperture_date':('date must be greater than current date.')})
+        if self.deperture_date < self.entry_date:
+            raise ValidationError({'deperture_date':('the departure date must be greater than the arrival date.')})
+        if self.deperture_date > date(year=2022, month=12, day=31):
+            raise ValidationError({'deperture_date':('the departure date must be less than 12-31-2022.')})
+        if len(self.name_of_person) < 2:
+            print(datetime.now())
+            raise ValidationError({'name_of_person':('the name is too short.')})

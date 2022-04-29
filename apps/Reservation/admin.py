@@ -19,7 +19,7 @@ class ReservationAdmin(admin.ModelAdmin):
     # readonly_fields = ('',)
     search_fields = ('localizador',)
     # date_hierarchy = ''
-    ordering = ('reservation_date',)
+    ordering = ('-id',)
     list_per_page = 20
     
     def number_room(self, obj):

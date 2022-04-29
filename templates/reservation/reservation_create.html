@@ -9,7 +9,14 @@
 <body>
     <form method="post">
         {% csrf_token %}
-        {{form}}
+        {{form.errors}}
+        <input type="hidden" name="{{form.room.name}}" id="{{form.room.name}}" value={{id_room}}>
+        <input type="date" name="{{form.entry_date.name}}" id="{{form.entry_date.name}}" placeholder="Entry date" value="{{entry_date}}">
+        <input type="date" name="{{form.deperture_date.name}}" id="{{form.deperture_date.name}}" placeholder="Deperture date" value="{{deperture_date}}">
+        {{form.guest_number}}
+        {{form.name_of_person}}
+        {{form.email_of_person}}
+        {{form.phone_number_person}}
         <input type="submit" value="Reserve">
     </form>
 </body>

@@ -22,7 +22,7 @@
     {% if room_avaible %}
         {% for room in room_avaible %}
             <ul>
-                <li><a href="{% url 'reservation:register_reservation' %}">{{room.room_number}}</a></li>
+                <li><a href="{% url 'reservation:register_reservation'%}?id_room={{room.id}}&entry_date={{entry_date}}&deperture_date={{deperture_date}}">{{room.room_number}}</a></li>
             </ul>
         {% endfor %}
     {% endif %}

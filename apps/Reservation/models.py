@@ -1,6 +1,5 @@
 # python
-from datetime import date, datetime
-
+from datetime import date
 # django
 from django.db import models
 from django.forms import ValidationError
@@ -40,14 +39,14 @@ class Reservation(models.Model):
         """Unicode representation of Reservation."""
         return str(self.room) + ' - ' + str(self.entry_date) + ' - ' + str(self.deperture_date) + ' - ' + self.name_of_person
 
-    def clean(self):
-        if self.entry_date < date.today():
-            raise ValidationError({'entry_date':('date must be greater than current date.')})
-        if self.deperture_date < date.today():
-            raise ValidationError({'deperture_date':('date must be greater than current date.')})
-        if self.deperture_date < self.entry_date:
-            raise ValidationError({'deperture_date':('the departure date must be greater than the arrival date.')})
-        if self.deperture_date > date(year=2022, month=12, day=31):
-            raise ValidationError({'deperture_date':('the departure date must be less than 12-31-2022.')})
-        if len(self.name_of_person) < 2:
-            raise ValidationError({'name_of_person':('the name is too short.')})
+    # def clean(self):
+        # if self.entry_date < date.today():
+            # raise ValidationError({'entry_date':('date must be greater than current date.')})
+    #     if self.deperture_date < date.today():
+    #         raise ValidationError({'deperture_date':('date must be greater than current date.')})
+    #     if self.deperture_date < self.entry_date:
+    #         raise ValidationError({'deperture_date':('the departure date must be greater than the arrival date.')})
+    #     if self.deperture_date > date(year=2022, month=12, day=31):
+    #         raise ValidationError({'deperture_date':('the departure date must be less than 12-31-2022.')})
+    #     if len(self.name_of_person) < 2:
+    #         raise ValidationError({'name_of_person':('the name is too short.')})

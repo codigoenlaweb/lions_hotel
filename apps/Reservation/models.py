@@ -50,5 +50,4 @@ class Reservation(models.Model):
         if self.deperture_date > date(year=2022, month=12, day=31):
             raise ValidationError({'deperture_date':('the departure date must be less than 12-31-2022.')})
         if len(self.name_of_person) < 2:
-            print(datetime.now())
             raise ValidationError({'name_of_person':('the name is too short.')})

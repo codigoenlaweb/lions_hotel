@@ -6,6 +6,7 @@ from django.forms import ValidationError
 
 # my app
 from apps.Room.models import Room
+from .managers import ReservationManager
 
 # Third party apps
 from phonenumber_field.modelfields import PhoneNumberField
@@ -26,8 +27,11 @@ class Reservation(models.Model):
     total_price = models.DecimalField(verbose_name="Toal price", max_digits=6, decimal_places=2)
     localizador = models.CharField(verbose_name="Localizador", max_length=8)
     confirmed = models.BooleanField(verbose_name="Confirmed", default=False)
-    confirmation_code = models.CharField(verbose_name="Confirmation_code", max_length=5)
+    confirmation_code = models.CharField(verbose_name="Confirmation_code", max_length=5, blank=True)
     confirmation_code_time = models.DateTimeField(verbose_name="Confirmation code time")
+
+    # managers
+    objects = ReservationManager()
 
     class Meta:
         """Meta definition for Reservation."""

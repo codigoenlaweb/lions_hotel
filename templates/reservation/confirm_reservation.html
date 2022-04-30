@@ -22,5 +22,9 @@
         <input type="text" name="{{form.code.name}}" id="{{form.code.name}}">
         <input type="submit" value="Confirm">
     </form>
+
+    <h2>Reenviar email?</h2>
+    <a href="{% url 'reservation:reseend_email' reservation.id %}">reseend email</a>
+
 </body>
 </html>

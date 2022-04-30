@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Reenviar email</h2>
+    <p>Cosas a tener en cuenta:</p>
+    <ul>
+        <li>Se le asignara un nuevo codigo de confirmacion.</li>
+        <li>El tiempo limite no se aumentara.</li>
+        <li>Si el tiempo limite se ha excedido no se le reenviara el correo.</li>
+    </ul>
+    <form method="post">
+        {% csrf_token %}
+        {{form.errors}}
+        <input type="hidden" name="{{form.id_reservation.name}}" value="{{reservation.id}}">
+        <input type="submit" value="Reseend">
+    </form>
+    <a href="{% url 'reservation:confirm_reservation' reservation.id %}">Go back</a>
+</body>
+</html>

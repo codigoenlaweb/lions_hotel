@@ -87,3 +87,24 @@ class ReservationConfirmForm(forms.ModelForm):
         if time_limit > timedelta(minutes=10):
             raise ValidationError({'code':('Sorry, the time limit has been exceeded. Please, if you wish to reserve, we ask you to repeat the reservation process.')})
         
+# reseend email   
+class ReseendEmailForm(forms.ModelForm):
+    id_reservation = forms.CharField()
+    
+    class Meta:
+        """Meta definition for Reservationform."""
+        model = Reservation
+        fields = ['confirmation_code',]
+        
+    def clean(self):
+        cleaned_data = super(ReseendEmailForm, self).clean()
+        id_reservation = cleaned_data.get("id_reservation")
+        is_equal_code_confirm = Reservation.objects.filter(id=id_reservation)
+        
+        # time limit
+        time_limit = (datetime.now(timezone.utc) - is_equal_code_confirm[0].confirmation_code_time)
+
+        # if the time limit exceeds 10 minutes, throw error
+        if time_limit > timedelta(minutes=10):
+            raise ValidationError({'confirmation_code':('Sorry, the time limit has been exceeded. Please, if you wish to reserve, we ask you to repeat the reservation process.')})
+        

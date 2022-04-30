@@ -6,4 +6,12 @@ urlpatterns = [
     path('register reservation',
          ReservationCreateView.as_view(),
          name='register_reservation'),
+    
+    path('confirm reservation/<pk>',
+         ReservationUpdateView.as_view(),
+         name='confirm_reservation'),
+    
+    path('confirmed reservations list',
+         ReservationConfirmedListView.as_view(),
+         name='confirmed_reservations_list'),
 ]

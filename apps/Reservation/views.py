@@ -2,12 +2,12 @@
 from datetime import datetime
 
 # django
-from django.views.generic import CreateView
-from django.urls import reverse_lazy
+from django.views.generic import CreateView, UpdateView, ListView
+from django.urls import reverse_lazy, reverse
 
 # my app
 from .models import Reservation
-from .forms import ReservationForm
+from .forms import ReservationConfirmForm, ReservationForm
 from .utils import code_generator
 
 # Create your views here.
@@ -15,8 +15,8 @@ class ReservationCreateView(CreateView):
     model = Reservation
     template_name = "reservation/reservation_create.html"
     form_class = ReservationForm
-    success_url = reverse_lazy("home:dashboard")
-
+    # success_url = reverse_lazy("")
+    
     def form_valid(self, form):
         # save commit false
         reservation = form.save(commit=False)
@@ -32,6 +32,8 @@ class ReservationCreateView(CreateView):
         
         # reservation save
         reservation.save()
+        
+        # success_url = reverse("reservation:confirm_reservation", kwargs={"pk": reservation})
         return super(ReservationCreateView, self).form_valid(form)
     
     
@@ -44,5 +46,44 @@ class ReservationCreateView(CreateView):
         
         # get id room
         context['id_room'] = self.request.GET.get('id_room') 
+        
+        return context
+    
+    def get_success_url(self):
+        return reverse('reservation:confirm_reservation', kwargs={'pk': self.object.id})
+
+class ReservationUpdateView(UpdateView):
+    context_object_name = 'reservation'
+    model = Reservation
+    template_name = "reservation/confirm_reservation.html"
+    form_class = ReservationConfirmForm
+    success_url = reverse_lazy("home:dashboard")
+    
+    def form_valid(self, form):
+        # save commit false
+        reservation = form.save(commit=False)
+        
+        # set reservation confirm
+        reservation.confirmed = True
+        
+        # reservation save
+        reservation.save()
+        
+        return super(ReservationUpdateView, self).form_valid(form)
+    
+
+class ReservationConfirmedListView(ListView):
+    model = Reservation
+    template_name = "reservation/confirmed_reservations_list.html"
+
+    def get_context_data(self,**kwargs):
+        context = super(ReservationConfirmedListView, self).get_context_data(**kwargs)
+
+        localizador = self.request.GET.get('localizador')
+        
+        if localizador == None:
+            localizador = ""
+        
+        context['your_reservation'] = Reservation.objects.filter(localizador=localizador, confirmed=True)
         
         return context

@@ -1,7 +1,10 @@
+# python
+from datetime import date, datetime, timezone, timedelta
+
 # django
-from datetime import date
 from django import forms
 from django.core.exceptions import ValidationError
+
 # my app
 from .models import Reservation
 from apps.Room.models import Room
@@ -39,7 +42,7 @@ class ReservationForm(forms.ModelForm):
             raise forms.ValidationError({'entry_date':('reservation error.')})
         
         # entry cannot be less than the current date
-        if entry_date <= date.today():
+        if entry_date < date.today():
             raise ValidationError({'entry_date':('date must be greater than current date.')})
         
         # deperture cannot be less than the current date
@@ -58,3 +61,29 @@ class ReservationForm(forms.ModelForm):
         if len(name_of_person) < 2:
             raise ValidationError({'name_of_person':('the name is too short.')})
     
+    
+class ReservationConfirmForm(forms.ModelForm):
+    code = forms.CharField()
+    id_reservation = forms.CharField()
+    class Meta:
+        """Meta definition for Reservationform."""
+        model = Reservation
+        fields = ['confirmed',]
+        
+    def clean(self):
+        cleaned_data = super(ReservationConfirmForm, self).clean()
+        code = cleaned_data.get("code")
+        id_reservation = cleaned_data.get("id_reservation")
+        is_equal_code_confirm = Reservation.objects.filter(id=id_reservation, confirmation_code=code)
+        
+        # time limit
+        time_limit = (datetime.now(timezone.utc) - is_equal_code_confirm[0].confirmation_code_time)
+
+        # if it brings me a list with more or less than one element, shoot error
+        if len(is_equal_code_confirm) != 1 :
+            raise ValidationError({'code':('Your verification code is incorrect. Please note the capital letters')})
+        
+        # if the time limit exceeds 10 minutes, throw error
+        if time_limit > timedelta(minutes=10):
+            raise ValidationError({'code':('Sorry, the time limit has been exceeded. Please, if you wish to reserve, we ask you to repeat the reservation process.')})
+        

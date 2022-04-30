@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Reservation</title>
+</head>
+<body>
+    {{reservation.room.type_of_room.category}}
+    {{reservation.total_price}}
+    {{reservation.entry_date}}
+    {{reservation.deperture_date}}
+    {{reservation.room.guest_number}}
+    {{reservation.name_of_person}}
+    {{reservation.email_of_person}}
+    {{reservation.phone_number_person}}
+    <form method="post">
+        {% csrf_token %}
+        {{form.errors}}
+        <input type="hidden" name="{{form.id_reservation.name}}" value="{{reservation.id}}">
+        <input type="text" name="{{form.code.name}}" id="{{form.code.name}}">
+        <input type="submit" value="Confirm">
+    </form>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<header class="px-2 md:px-4">
+  <nav class="containerbase flex flex-wrap justify-between items-center">
+    <h1 class="font-bold font-quicksand text-xl text-principalgreen">
+      Lions Hotel
+    </h1>
+
+    <ul class="flex items-center">
+      {% url 'home:dashboard' as url %}
+      <li class="mr-2 md:mr-3 transition duration-150 ease-linear focus:scale-110 hover:scale-110">
+        <a
+          class="{% if request.path == url %}linkactive{% endif %}"
+          href="{% url 'home:dashboard' %}"
+          >Home</a
+        >
+      </li>
+      {% url 'reservation:confirmed_reservations_list' as url %}
+      <li class="transition duration-150 ease-linear focus:scale-110 hover:scale-110">
+        <a
+          class="linkinactive"
+          href="{% url 'reservation:confirmed_reservations_list' %}"
+          >Reservation</a
+        >
+      </li>
+    </ul>
+  </nav>
+</header>

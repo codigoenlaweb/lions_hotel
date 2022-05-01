@@ -1,19 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <title>Lions Hotel</title>
+{% extends 'modules/base.html' %} 
+{% load static %} 
+{% block title %}Lions Hotel{% endblock title %}
 
-</head>
-<body>
-    {% for room_type in type_of_rooms %}
-        <ul>
-            <li><a class="" href="{% url 'type_of_reservation:room_avaible' room_type.id %}">{{room_type.category}}</a></li>
-        </ul>
-    {% endfor %}
-</body>
-</html>
+{% block main_content %}
+<main class="px-2 md:px-4">
+    <article class="max-w-screen-md mx-auto bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 py-2 md:py-3 rounded-md text-center">
+        <h2 class="text-white font-bold font-quicksand">
+            The hotel los leones has a total of {{leng_room.count_room}}
+            rooms for your rest and comfort between {% for room_type in type_of_rooms %}{{room_type.category}} {% endfor %}
+        </h2>
+    </article>
+
+    <section class="flex flex-wrap justify-center sm:justify-evenly mt-2 max-w-screen-lg mx-auto">
+        {% for room_type in type_of_rooms %}
+        <article class="w-full sm:w-2/5 md:mx-4 max-w-xs my-4 bg-white shadow-md rounded-md text-center">
+        <svg
+            class="w-full bg-principalgreen rounded-t-md mb-2"
+            width="160px"
+            height="160px"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+            d="M19.25 11C20.7125 11 21.9084 12.1417 21.995 13.5825L22 13.75V20.25C22 20.6642 21.6642 21 21.25 21C20.8703 21 20.5565 20.7178 20.5068 20.3518L20.5 20.25V18H3.5V20.25C3.5 20.6297 3.21785 20.9435 2.85177 20.9932L2.75 21C2.3703 21 2.05651 20.7178 2.00685 20.3518L2 20.25V13.75C2 12.2875 3.1417 11.0916 4.58248 11.005L4.75 11H19.25ZM6.75 4H17.25C18.7125 4 19.9084 5.1417 19.995 6.58248L20 6.75V10H17L16.9933 9.88338C16.94 9.4243 16.5757 9.06005 16.1166 9.00673L16 9H14C13.4872 9 13.0645 9.38604 13.0067 9.88338L13 10H11L10.9933 9.88338C10.9399 9.4243 10.5757 9.06005 10.1166 9.00673L10 9H8C7.48716 9 7.06449 9.38604 7.00673 9.88338L7 10H4V6.75C4 5.28747 5.1417 4.0916 6.58248 4.00502L6.75 4Z"
+            fill="white"
+            />
+        </svg>
+        <p class="text-lg font-bold text-principalgreen">{{room_type.category}}</p>
+        {% if room_type.number_of_people > 1 %}
+            <p class="text-gray-500 font-medium">Adults {{room_type.number_of_people}}</p>
+        {% else %}
+            <p class="text-gray-500 font-medium">Adult {{room_type.number_of_people}}</p>
+        {% endif %}
+        <p class="text-gray-500 font-medium"><span class="font-roboto font-bold">{{room_type.price}}€</span> a night</p>
+        <a class="block w-2/5 mx-auto py-2 mt-2 mb-3 font-roboto font-bold bg-white hover:bg-principalgreen focus:bg-principalgreen text-principalgreen hover:text-white focus:text-white border-2 border-principalgreen border-solid rounded-md outline-none transition duration-150 ease-linear" href="{% url 'type_of_reservation:room_avaible' room_type.id %}"
+            >Details</a
+        >
+        </article>
+        {% endfor %}
+    </section>
+</main>
+{% endblock main_content %}

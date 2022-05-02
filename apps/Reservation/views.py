@@ -122,12 +122,20 @@ class ReservationConfirmedListView(ListView):
     template_name = "reservation/confirmed_reservations_list.html"
 
     def get_context_data(self, **kwargs):
-        context = super(ReservationConfirmedListView,
-                        self).get_context_data(**kwargs)
+        context = super(
+            ReservationConfirmedListView,
+            self
+        ).get_context_data(**kwargs)
 
         localizador = self.request.GET.get('localizador')
 
-        context['your_reservation'] = Reservation.objects.search_locator(
-            localizador)
+        if localizador != None:
+            your_reservation = Reservation.objects.search_locator(
+                localizador
+            )
+            if len(your_reservation) == 1:
+                context['your_reservation'] = your_reservation
+            else:
+                context['error'] = "Your locator code does not match any, make sure you are writing in uppercase"
 
         return context

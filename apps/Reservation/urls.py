@@ -21,7 +21,7 @@ urlpatterns = [
     ),
 
     path(
-        'confirmed reservations list',
+        'confirmedreservationslist',
         ReservationConfirmedListView.as_view(),
         name='confirmed_reservations_list'
     ),

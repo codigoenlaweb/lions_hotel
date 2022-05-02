@@ -8,10 +8,22 @@
     @apply mx-auto my-3 px-4 py-3 bg-white rounded-md md:rounded-lg max-w-screen-lg shadow-md;
 }
 
+.containermd {
+    @apply mx-auto my-3 px-4 py-3 bg-white rounded-md md:rounded-lg max-w-screen-md shadow-md;
+}
+
+.containerxs {
+    @apply mx-auto my-3 px-4 py-3 bg-white rounded-md md:rounded-lg max-w-xs shadow-md;
+}
+
 .linkactive {
     @apply font-roboto font-bold text-gray-500 outline-principalgreen;
 }
 
 .linkinactive {
     @apply font-roboto font-bold text-gray-400 hover:text-gray-500 focus:text-gray-500 outline-principalgreen transition-all duration-150 ease-linear ;
+}
+
+.buttonpricipal {
+    @apply py-2 font-roboto font-bold bg-white hover:bg-principalgreen focus:bg-principalgreen text-principalgreen hover:text-white focus:text-white border-2 border-principalgreen border-solid rounded-md outline-none transition duration-150 ease-linear;
 }

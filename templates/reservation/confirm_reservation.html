@@ -1,30 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirm Reservation</title>
-</head>
-<body>
-    {{reservation.room.type_of_room.category}}
-    {{reservation.total_price}}
-    {{reservation.entry_date}}
-    {{reservation.deperture_date}}
-    {{reservation.room.guest_number}}
-    {{reservation.name_of_person}}
-    {{reservation.email_of_person}}
-    {{reservation.phone_number_person}}
-    <form method="post">
+{% extends 'modules/base.html' %} 
+{% load static %} 
+{% block title %}Confirm Reservation{% endblock title %}
+{% block main_content %}
+<main class="px-2 md:px-4 min-h-screen mt-8 md:mt-12">
+    <form method="post" class="containerxs text-center">
+        <h2 class="mb-2 font-bold font-roboto text-xl text-principalgreen text-center">Confirm Reservation</h2>
+        <h3 class="text-gray-500 font-medium mb-4">We have sent you a verification code to the email {{reservation.email_of_person}} that expires in 10 minutes. Please verify your reservation before the expiration of the code to finalize the reservation process.</h3>
         {% csrf_token %}
-        {{form.errors}}
         <input type="hidden" name="{{form.id_reservation.name}}" value="{{reservation.id}}">
-        <input type="text" name="{{form.code.name}}" id="{{form.code.name}}">
-        <input type="submit" value="Confirm">
+        <input type="text" placeholder="Code" name="{{form.code.name}}" id="{{form.code.name}}" class="mb-4 h-7 w-32 text-lg bg-secondarygray rounded px-2 text-textinputfield font-bold outline-principalgreen outline-2 placeholder:text-gray-400">
+        <div>
+            <input type="submit" value="Confirm" class="buttonpricipal px-6">
+            <a href="{% url 'reservation:reseend_email' reservation.id %}" class="mt-1 font-medium text-green-700 hover:text-principalgreen transition duration-150 ease-linear ml-2">Reseend email</a>
+        </div>
     </form>
 
-    <h2>Reenviar email?</h2>
-    <a href="{% url 'reservation:reseend_email' reservation.id %}">reseend email</a>
+    {% if form.errors.code %}
+        <div class="max-w-xs mx-auto text-red-800 font-roboto text-center bg-red-400 border border-solid border-red-800 rounded-md shadow-md">
+            {{form.errors.code}}
+        </div>
+    {% endif %}
 
-</body>
-</html>
+</main>
+{% endblock main_content %}

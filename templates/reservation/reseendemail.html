@@ -1,25 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h2>Reenviar email</h2>
-    <p>Cosas a tener en cuenta:</p>
-    <ul>
-        <li>Se le asignara un nuevo codigo de confirmacion.</li>
-        <li>El tiempo limite no se aumentara.</li>
-        <li>Si el tiempo limite se ha excedido no se le reenviara el correo.</li>
-    </ul>
-    <form method="post">
-        {% csrf_token %}
-        {{form.errors}}
+{% extends 'modules/base.html' %} 
+{% load static %} 
+{% block title %}Resend Email{% endblock title %}
+{% block main_content %}
+<main class="px-2 md:px-4 min-h-screen mt-8 md:mt-12">
+    <form method="post" class="containerxs">
+        <h2 class="mb-2 font-bold font-roboto text-xl text-principalgreen text-center">Resend email</h2>
+        <p class="text-gray-500 font-medium">Things to keep in mind:</p>
+        <ul class="list-disc">
+            <li class="ml-4 text-gray-500 font-medium">A new confirmation code will be assigned to you.</li>
+            <li class="ml-4 text-gray-500 font-medium">The time limit will not increase.</li>
+            <li class="ml-4 text-gray-500 font-medium">If the time limit has been exceeded, the mail will not be resent.</li>
+        </ul>
+        {% csrf_token %}        
         <input type="hidden" name="{{form.id_reservation.name}}" value="{{reservation.id}}">
-        <input type="submit" value="Reseend">
+        <div class="flex flex-wrap justify-center items-center mt-4">
+            <input type="submit" value="Reseend" class="buttonpricipal px-6">
+            <a href="{% url 'reservation:confirm_reservation' reservation.id %}" class="mt-1 font-medium text-green-700 hover:text-principalgreen transition duration-150 ease-linear ml-2">Go back</a>
+        </div>
     </form>
-    <a href="{% url 'reservation:confirm_reservation' reservation.id %}">Go back</a>
-</body>
-</html>
+
+    
+    {% if form.errors.confirmation_code %}
+        <div class="max-w-xs mx-auto text-red-800 font-roboto text-center bg-red-400 border border-solid border-red-800 rounded-md shadow-md">
+            {{form.errors.confirmation_code}}
+        </div>
+    {% endif %}
+
+</main>
+{% endblock main_content %}

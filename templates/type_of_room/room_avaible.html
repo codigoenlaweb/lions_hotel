@@ -1,31 +1,63 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>book your room</title>
-</head>
-<body>
-    {{type_of_room.category}}
+{% extends 'modules/base.html' %} 
+{% load static %} 
+{% block title %}book your room{% endblock title %}
+
+{% block main_content %}
+<main class="px-2 md:px-4 min-h-screen">
+    {% comment %} {{type_of_room.category}}
     {{type_of_room.number_of_people}}
-    {{type_of_room.price}}
-    <form method="get">
-        <input type="date" name="entry_date" id="entry_date" min="{{min_date}}" max="2022-12-31" required>
-        <input type="date" name="deperture_date" id="deperture_date" min="{{min_date}}" max="2022-12-31" required>
-        <input type="submit" value="verificar disponibilidad">
-        
-        {% if date_error %}
-            <p>{{date_error}}</p>
-        {% endif %}
-    </form>
-    {% if room_avaible %}
-        {% for room in room_avaible %}
-            <ul>
-                <li><a href="{% url 'reservation:register_reservation'%}?id_room={{room.id}}&entry_date={{entry_date}}&deperture_date={{deperture_date}}">{{room.room_number}}</a></li>
-            </ul>
-        {% endfor %}
+    {{type_of_room.price}} {% endcomment %}
+    
+    {% if type_of_room.description != None and type_of_room.description != "" and type_of_room.description|length > 8  %}
+    <article class="max-w-screen-md mx-auto px-2 py-2 md:py-3 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 rounded-md text-center">
+        <h2 class="text-white font-bold font-quicksand">
+            {{type_of_room.description}}
+        </h2>
+    </article>
     {% endif %}
         
-</body>
-</html>
+    <form method="get" class="containermd flex flex-col md:flex-row items-center md:flex-wrap md:justify-center">
+        {% if type_of_room.number_of_people > 1 %}
+        <h3 class="md:w-full md:mb-3 text-center mb-2 text-lg font-roboto font-bold text-principalgreen">{{type_of_room.category}} room for {{type_of_room.number_of_people}} adults and {{type_of_room.price}}€ per night</h3>
+        {% else %}
+        <h3 class="md:w-full md:mb-3 text-center mb-2 text-lg font-roboto font-bold text-principalgreen">{{type_of_room.category}} room for an adult and {{type_of_room.price}}€ per night</h3>
+        {% endif %}
+        
+        <label class="mr-2 text-gray-500 font-bold font-roboto" for="entry_date">Entry:</label>
+        <input class="md:mr-2 md:mb-0 h-9 w-48 mb-2 bg-secondarygray rounded px-2 text-textinputfield font-bold outline-principalgreen outline-2" type="date" name="entry_date" id="entry_date" min="{{min_date}}" max="2022-12-31" required>
+        <label class="mr-2 text-gray-500 font-bold font-roboto" for="deperture_date">Deperture:</label>
+        <input class="md:mr-2 md:mb-0 h-9 w-48 mb-2 bg-secondarygray rounded px-2 text-textinputfield font-bold outline-principalgreen" type="date" name="deperture_date" id="deperture_date" min="{{min_date}}" max="2022-12-31" required>
+        <input class="buttonpricipal px-6" type="submit" value="Check">
+    </form>
+
+    {% if date_error %}
+    <p class="mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-red-400 font-roboto font-bold text-red-800 border border-solid border-red-800 rounded-md">{{date_error}}</p>
+    {% endif %}
+    
+    {% if room_avaible %}
+    <p class="mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-principalgreen font-roboto font-bold text-white rounded-md">{{room_avaible|length}} rooms available, total amount to pay {{price_total}}€</p>
+    <section class="flex flex-wrap justify-center sm:justify-evenly mt-2 max-w-screen-lg mx-auto">
+        {% for room in room_avaible %}
+        <article class="w-full sm:w-2/5 md:mx-4 max-w-xs my-4 bg-white shadow-md rounded-md text-center">
+            <svg 
+            class="w-full bg-principalgreen rounded-t-md mb-2 "
+            xmlns="http://www.w3.org/2000/svg"
+            height="160px"
+            width="160px"
+            fill="none"
+            viewBox="0 0 50 50">
+            <path 
+            fill="white"
+            d="M4 38V35H44V38ZM5.5 32V31.15Q5.5 23.4 9.925 18.65Q14.35 13.9 21 12.5V11Q21 9.7 21.85 8.85Q22.7 8 24 8Q25.3 8 26.15 8.85Q27 9.7 27 11V12.5Q33.65 13.9 38.075 18.65Q42.5 23.4 42.5 31.15V32ZM8.65 29H39.35Q38.65 22.6 34.225 18.975Q29.8 15.35 23.95 15.35Q18.1 15.35 13.725 18.975Q9.35 22.6 8.65 29ZM24 29Q24 29 24 29Q24 29 24 29Q24 29 24 29Q24 29 24 29Z"/>
+            </svg>
+            <p class="text-lg font-bold text-principalgreen">Room number: {{room.room_number}}</p>
+            <p class="text-gray-500 font-medium"><span class="font-roboto font-bold">Floor number: {{room.floor_number}}</p>
+            <a class="buttonpricipal block w-2/5 mx-auto mt-2 mb-3" href="{% url 'reservation:register_reservation'%}?id_room={{room.id}}&entry_date={{entry_date}}&deperture_date={{deperture_date}}"
+                >Reserve </a
+            >
+        </article>
+        {% endfor %}
+    </section>
+    {% endif %}
+</main class="px-2 md:px-4">
+{% endblock main_content %}

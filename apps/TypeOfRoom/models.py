@@ -10,7 +10,7 @@ class TypeOfRoom(models.Model):
     category = models.CharField(verbose_name="Category", max_length=20)
     number_of_people = models.IntegerField(verbose_name="Number of people")
     price = models.DecimalField(verbose_name="Price", max_digits=5, decimal_places=2)
-    
+    description = models.TextField(verbose_name="Description", blank=True, null=True)
 
 
     class Meta:

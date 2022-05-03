@@ -1,9 +1,12 @@
 # python
 from datetime import datetime
+import email
 
 # django
 from django.views.generic import CreateView, UpdateView, ListView
 from django.urls import reverse_lazy, reverse
+from django.contrib import messages
+import threading
 
 # my app
 from .models import Reservation
@@ -37,11 +40,13 @@ class ReservationCreateView(CreateView):
         reservation.save()
 
         # send email
-        create_reservation_email(
-            self=self,
-            email_of_person=reservation.email_of_person,
-            confirmation_code=reservation.confirmation_code,
-        )
+        thread = threading.Thread(target=create_reservation_email, args=(self, reservation.email_of_person, reservation.confirmation_code))
+        thread.start()
+        # create_reservation_email(
+        #     self=self,
+        #     email_of_person=reservation.email_of_person,
+        #     confirmation_code=reservation.confirmation_code,
+        # )
 
         # success_url = reverse("reservation:confirm_reservation", kwargs={"pk": reservation})
         return super(ReservationCreateView, self).form_valid(form)
@@ -78,12 +83,15 @@ class ReservationUpdateView(UpdateView):
 
         # reservation save
         reservation.save()
-
-        localizador_email(
-            self=self,
-            email_of_person=reservation.email_of_person,
-            localizador=reservation.localizador
-        )
+        thread = threading.Thread(target=create_reservation_email, args=(self, reservation.email_of_person, reservation.localizador))
+        thread.start()
+        # localizador_email(
+        #     self=self,
+        #     email_of_person=reservation.email_of_person,
+        #     localizador=reservation.localizador
+        # )
+        
+        messages.success(self.request, 'Your reservation has been successful, we have sent you a locator code to your email')
 
         return super(ReservationUpdateView, self).form_valid(form)
 
@@ -105,11 +113,13 @@ class ReservationCodeConfirmUpdateView(UpdateView):
         reservation.save()
 
         # send email
-        create_reservation_email(
-            self=self,
-            email_of_person=reservation.email_of_person,
-            confirmation_code=reservation.confirmation_code,
-        )
+        thread = threading.Thread(target=create_reservation_email, args=(self, reservation.email_of_person, reservation.confirmation_code))
+        thread.start()
+        # create_reservation_email(
+        #     self=self,
+        #     email_of_person=reservation.email_of_person,
+        #     confirmation_code=reservation.confirmation_code,
+        # )
 
         return super(ReservationCodeConfirmUpdateView, self).form_valid(form)
 

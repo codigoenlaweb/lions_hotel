@@ -2,13 +2,19 @@
 {% load static %} 
 {% block title %}Your reservation{% endblock title %}
 {% block main_content %}
-<main class="px-2 md:px-4 min-h-screen mt-8 md:mt-12">
-    <form method="get" class="containerxs flex flex-wrap justify-center items-center">
-        <input type="text" name="localizador" id="localizador" placeholder="localizador" class="h-8 w-32 mr-4 text-lg bg-secondarygray rounded px-2 text-textinputfield font-bold outline-principalgreen outline-2 placeholder:text-gray-400">
-        <input type="submit" value="Search" class="buttonpricipal px-8">
-    </form>
+<main class="px-2 md:px-4 min-h-screen mt-4 md:mt-8">
+    <article class="animate__animated animate__backInLeft max-w-screen-md mx-auto px-2 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 py-2 md:py-3 rounded-md text-center">
+        <h2 class="text-white font-bold font-quicksand">
+            The locator code is a unique code that will be assigned to the user when confirming the reservation. This code will be sent by email
+        </h2>
+    </article>
+    <div class="animate__animated animate__slow animate__fadeIn mt-4 md:mt-6">
+        <form method="get" class="containerxs flex flex-wrap justify-center items-center">
+            <input type="text" name="localizador" id="localizador" placeholder="localizador" class="h-8 w-32 mr-4 text-lg bg-secondarygray rounded px-2 text-textinputfield font-bold outline-principalgreen outline-2 placeholder:text-gray-400">
+            <input type="submit" value="Search" class="buttonpricipal px-8">
+        </form>
+    </div>
 
-    
     {% if your_reservation %}
         {% for reservation in your_reservation %}
         <div class="containerxs">
@@ -32,10 +38,17 @@
         </div>
         {% endfor %}
     {% endif %}
-    {{your_reservation.reservation_date}}
     
+    {% if messages %}
+    {% for message in messages %}
+    <div class="animate__animated animate__shakeY py-2 px-1 md:px-2 max-w-xs mx-auto text-green-700 font-roboto text-center bg-principalgreen border border-solid border-green-700 rounded-md shadow-md">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+
     {% if error %}
-    <div class="py-2 px-1 md:px-2 max-w-xs mx-auto text-red-800 font-roboto text-center bg-red-400 border border-solid border-red-800 rounded-md shadow-md">
+    <div class="animate__animated animate__shakeX py-2 px-1 md:px-2 max-w-xs mx-auto text-red-800 font-roboto text-center bg-red-400 border border-solid border-red-800 rounded-md shadow-md">
         {{error}}
     </div>
     {% endif %}

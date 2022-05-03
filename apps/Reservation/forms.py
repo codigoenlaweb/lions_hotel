@@ -60,7 +60,7 @@ class ReservationForm(forms.ModelForm):
             id_room.id, entry_date, deperture_date)
         if len(room_avaible) != 1:
             print(room_avaible)
-            raise forms.ValidationError({'entry_date': ('reservation error.')})
+            raise forms.ValidationError({'entry_date': ('reservation error. The room you wish to reserve has already been reserved on that date')})
 
         # entry cannot be less than the current date
         if entry_date < date.today():

@@ -9,14 +9,14 @@
     {{type_of_room.price}} {% endcomment %}
     
     {% if type_of_room.description != None and type_of_room.description != "" and type_of_room.description|length > 8  %}
-    <article class="max-w-screen-md mx-auto px-2 py-2 md:py-3 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 rounded-md text-center">
+    <article class="animate__animated animate__backInLeft max-w-screen-md mx-auto px-2 py-2 md:py-3 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 rounded-md text-center">
         <h2 class="text-white font-bold font-quicksand">
             {{type_of_room.description}}
         </h2>
     </article>
     {% endif %}
         
-    <form method="get" class="containermd flex flex-col md:flex-row items-center md:flex-wrap md:justify-center">
+    <form method="get" class="animate__animated animate__slow animate__fadeIn containermd flex flex-col md:flex-row items-center md:flex-wrap md:justify-center">
         {% if type_of_room.number_of_people > 1 %}
         <h3 class="md:w-full md:mb-3 text-center mb-2 text-lg font-roboto font-bold text-principalgreen">{{type_of_room.category}} room for {{type_of_room.number_of_people}} adults and {{type_of_room.price}}€ per night</h3>
         {% else %}
@@ -31,12 +31,12 @@
     </form>
 
     {% if date_error %}
-    <p class="mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-red-400 font-roboto font-bold text-red-800 border border-solid border-red-800 rounded-md">{{date_error}}</p>
+    <p class="animate__animated animate__shakeX mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-red-400 font-roboto font-bold text-red-800 border border-solid border-red-800 rounded-md">{{date_error}}</p>
     {% endif %}
     
     {% if room_avaible %}
-    <p class="mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-principalgreen font-roboto font-bold text-white rounded-md">{{room_avaible|length}} rooms available, total amount to pay {{price_total}}€</p>
-    <section class="flex flex-wrap justify-center sm:justify-evenly mt-2 max-w-screen-lg mx-auto">
+    <p class="animate__animated animate__slow animate__fadeIn mx-auto max-w-screen-md text-center shadow-md mt-4 px-2 py-2 bg-principalgreen font-roboto font-bold text-white rounded-md">{{room_avaible|length}} rooms available, total amount to pay {{price_total}}€</p>
+    <section class="animate__animated animate__slow animate__fadeIn flex flex-wrap justify-center sm:justify-evenly mt-2 max-w-screen-lg mx-auto">
         {% for room in room_avaible %}
         <article class="w-full sm:w-2/5 md:mx-4 max-w-xs my-4 bg-white shadow-md rounded-md text-center">
             <svg 

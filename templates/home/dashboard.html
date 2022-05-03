@@ -4,7 +4,7 @@
 
 {% block main_content %}
 <main class="px-2 md:px-4">
-    <article class="max-w-screen-md mx-auto px-2 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 py-2 md:py-3 rounded-md text-center">
+    <article class="animate__animated animate__backInLeft max-w-screen-md mx-auto px-2 md:px-4 bg-neutral-600 border-2 border-solid shadow-lg border-neutral-700 py-2 md:py-3 rounded-md text-center">
         <h2 class="text-white font-bold font-quicksand">
             The hotel los leones has a total of {{leng_room.count_room}}
             rooms for your rest and comfort between {% for room_type in type_of_rooms %}{{room_type.category}} {% endfor %}
@@ -13,7 +13,7 @@
 
     <section class="flex flex-wrap justify-center sm:justify-evenly mt-2 max-w-screen-lg mx-auto">
         {% for room_type in type_of_rooms %}
-        <article class="w-full sm:w-2/5 md:mx-4 max-w-xs my-4 bg-white shadow-md rounded-md text-center">
+        <article class="animate__animated animate__slower animate__fadeIn w-full sm:w-2/5 md:mx-4 max-w-xs my-4 bg-white shadow-md rounded-md text-center">
         <svg
             class="w-full bg-principalgreen rounded-t-md mb-2"
             width="160px"

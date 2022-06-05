@@ -2,6 +2,8 @@
 
 ![View project](https://github.com/codigoenlaweb/lions_hotel/blob/master/static/img/imgreadme1.jpeg)
 
+<h4 align="center">Hotel reservation website</h4>
+
 <div align="center">
     <a align="center" href="https://lionshotel.herokuapp.com/">View Demo</a>
 </div>

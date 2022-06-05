@@ -89,7 +89,7 @@ this project already has everything configured to be able to work with tailwind 
 **Ready you have completed all the installation congratulations :)** 
 
 ## Database design.
-[diagrama relacional](https://drive.google.com/file/d/1HpivqhYgemKfOTEcpf3FEgm9jLDR9sZW/view?usp=drivesdk "diagrama relacional")
+[relational diagram](https://drive.google.com/file/d/1HpivqhYgemKfOTEcpf3FEgm9jLDR9sZW/view?usp=drivesdk "relational diagram")
 
 ## Author.
 Jesus Olmos - [Linkedin](https://www.linkedin.com/in/jesus-armando-olmos-olmos-607748228/ "Linkedin") - olmosjesusarmando@gmail.com

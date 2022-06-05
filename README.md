@@ -1,6 +1,6 @@
 <h1 align="center">Lions Hotels.</h1> 
 
-![View project](https://github.com/codigoenlaweb/hero-app/blob/master/public/assets/imgreadme1.jpeg)
+![View project](https://github.com/codigoenlaweb/lions_hotel/blob/master/static/img/imgreadme1.jpeg)
 
 <div align="center">
     <a align="center" href="https://lionshotel.herokuapp.com/">View Demo</a>
